@@ -1,6 +1,6 @@
 FROM alpine:3.6
-ENV TIMEZONE America/Santiago
-RUN apk update && apk upgrade
+ENV TIMEZONE UTC
+RUN apk update --no-cache && apk upgrade
 RUN apk add mariadb mariadb-client \
     apache2 \ 
     apache2-utils \
@@ -28,7 +28,8 @@ RUN apk add mariadb mariadb-client \
     php7-mbstring \
     php7-apcu \
     php7-opcache \
-    php7-tokenizer
+    php7-tokenizer \
+    php7-xmlwriter
 
 RUN curl -sS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/bin --filename=composer

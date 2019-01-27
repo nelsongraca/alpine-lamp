@@ -33,7 +33,7 @@ RUN apk add mariadb mariadb-client \
 
 RUN curl -sS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/bin --filename=composer && \
-    sed -i 's#AllowOverride None#AllowOverride All#' /etc/apache2/httpd.conf && \
+    sed -i 's#AllowOverride None#AllowOverride All#' /etc/apache2/httpd.conf
 #    sed -i 's#Require all denied#Require all granted#' /etc/apache2/httpd.conf && \
 #    sed -i 's#^DocumentRoot ".*#DocumentRoot "/var/www/localhost/htdocs"#g' /etc/apache2/httpd.conf && \
 

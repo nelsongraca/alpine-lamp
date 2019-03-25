@@ -1,7 +1,11 @@
 FROM alpine:3.6
 ENV TIMEZONE UTC
+ENV PUID=1000
+ENV PGID=1000
+
 RUN apk update --no-cache && apk upgrade
-RUN apk add mariadb mariadb-client \
+RUN apk add shadow \
+    mariadb mariadb-client \
     apache2 \
     apache2-utils \
     curl wget vim htop \
@@ -65,6 +69,12 @@ RUN echo "zend_extension=xdebug.so" > /etc/php7/conf.d/xdebug.ini && \
     echo "xdebug.idekey=PHPSTORM" >> /etc/php7/conf.d/xdebug.ini && \
     echo "xdebug.remote_host=host.docker.internal" >> /etc/php7/conf.d/xdebug.ini && \
     echo "xdebug.remote_log=\"/tmp/xdebug.log\"" >> /etc/php7/conf.d/xdebug.ini
+
+RUN groupadd --gid "${PGID}" -r docker && \
+    useradd -u "${PUID}" -r -g docker -c "Docker Image User" docker && \
+    sed -i 's/User apache/User docker/g' /etc/apache2/httpd.conf && \
+    sed -i 's/Group apache/Group docker/g' /etc/apache2/httpd.conf
+
 
 COPY entry.sh /entry.sh
 

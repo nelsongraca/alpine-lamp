@@ -1,5 +1,8 @@
 #!/bin/sh
 
+usermod -u ${PUID} docker
+groupmod -g ${PGID} docker
+
 # start apache
 httpd
 

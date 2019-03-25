@@ -33,7 +33,8 @@ RUN apk add shadow \
     php7-apcu \
     php7-opcache \
     php7-tokenizer \
-    php7-xmlwriter
+    php7-xmlwriter \
+    php7-fileinfo
 
 RUN curl -sS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/bin --filename=composer && \
